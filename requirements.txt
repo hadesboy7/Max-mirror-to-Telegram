@@ -1,0 +1,7 @@
+# Проверено на: Python 3.14, playwright 1.61.0, aiogram 3.30.0, python-dotenv 1.2.2.
+# Более старые версии не проверялись.
+playwright>=1.61,<2
+aiogram>=3.30,<4
+python-dotenv>=1.0,<2
+
+# sqlite3 входит в стандартную библиотеку Python — отдельная установка не нужна.

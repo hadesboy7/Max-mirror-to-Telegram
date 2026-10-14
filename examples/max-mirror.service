@@ -1,0 +1,42 @@
+# Пример службы systemd для MAX Mirror.
+#
+# 1. Замените ПУТЬ и ПОЛЬЗОВАТЕЛЯ на свои.
+# 2. Скопируйте:  sudo cp examples/max-mirror.service /etc/systemd/system/
+# 3. Включите:    sudo systemctl daemon-reload && sudo systemctl enable --now max-mirror
+# 4. Журнал:      journalctl -u max-mirror -f
+#
+# Запускать от root НЕ обязательно. Под обычным пользователем добавьте
+# --no-sandbox в CHROMIUM_ARGS только если Chromium не стартует иначе.
+
+[Unit]
+Description=MAX Mirror — зеркало беседы MAX в Telegram
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+
+# ЗАМЕНИТЕ на свои значения:
+User=maxmirror
+Group=maxmirror
+WorkingDirectory=/home/maxmirror/max-mirror
+ExecStart=/home/maxmirror/max-mirror/venv/bin/python /home/maxmirror/max-mirror/bridge_ui.py
+
+# Перезапуск при падении. RestartSec=20, а не 5: старый Chromium
+# освобождает память не мгновенно, и два браузера сразу могут не влезть.
+Restart=always
+RestartSec=20
+
+# Защита от бесконечного цикла перезапусков.
+StartLimitIntervalSec=600
+StartLimitBurst=10
+
+# Корректное завершение: мост закрывает браузер сам, дайте ему время.
+KillSignal=SIGTERM
+TimeoutStopSec=60
+
+# Не писать дампы памяти на диск (в них попадут тексты сообщений).
+LimitCORE=0
+
+[Install]
+WantedBy=multi-user.target

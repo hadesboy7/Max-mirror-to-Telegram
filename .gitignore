@@ -1,0 +1,71 @@
+# ────────────────────────────────────────────────────────────────────
+#  СЕКРЕТЫ И ЛИЧНЫЕ ДАННЫЕ — никогда не попадают в репозиторий
+# ────────────────────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# Профиль Chromium: внутри авторизованная сессия MAX (cookies, localStorage).
+# Потеря = повторный вход по QR, публикация = чужой доступ к вашему аккаунту.
+max_profile/
+*/max_profile/
+user-data/
+chromium-profile/
+
+# База состояния: содержит тексты и авторов ваших сообщений
+state.db
+state.db-wal
+state.db-shm
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+
+# Служебные файлы состояния
+max-mirror.alive
+max-mirror-crashes
+
+# QR-коды авторизации и любые снимки экрана
+login_qr.png
+max_chat.png
+*.png
+*.jpg
+*.jpeg
+*.webp
+
+# Дампы DOM и ответов — содержат реальную переписку
+calib_dump.html
+*.html
+*.json
+!package.json
+
+# Логи и резервные копии
+*.log
+logs/
+backups/
+*.tgz
+*.tar.gz
+*.bak
+rollback-*/
+
+# Ключи и сертификаты
+*.pem
+*.key
+*.ppk
+id_rsa*
+id_ed25519*
+
+# Python
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Системное
+.DS_Store
+Thumbs.db
